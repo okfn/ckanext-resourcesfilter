@@ -10,6 +10,7 @@ this.ckan.module('resources-list', {
 
     $('#resources-list-filter').on('input', this._onFilter);
 
+    this.pageSize = this.options['page-size'];
     this.allResources = this.activeResources = this.options.resources;
 
     this.pager = $('<div></div>').insertAfter(this.el);

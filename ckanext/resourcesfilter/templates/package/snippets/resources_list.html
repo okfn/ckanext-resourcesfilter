@@ -1,14 +1,18 @@
 {% ckan_extends %}
 
 {% block resource_list %}
-  {% if resources|length > 5 %}
+{% set page_size = h.get_resources_filter_page_size() %}
+  {% if resources|length >= page_size %}
     <form class="simple-input">
      <div class="resources-list-filter-container field" >
         <input type="text" placeholder="Filter resources" class="form-control" id="resources-list-filter"/>
         <button class="btn-search" type="submit"><i class="fa fa-search"></i></button>
       </div>
     </form>
-    <ul class="resource-list" data-module="resources-list" data-module-resources="{{ h.dump_json(resources) }}">
+    <ul class="resource-list"
+        data-module="resources-list"
+        data-module-page-size="{{ page_size }}"
+        data-module-resources="{{ h.dump_json(resources) }}">
     </ul>
 
     {% include 'package/snippets/resources_list_template.html' %}
