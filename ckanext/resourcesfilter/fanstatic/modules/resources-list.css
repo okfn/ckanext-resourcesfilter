@@ -2,6 +2,12 @@
   margin-bottom: 20px;
 }
 
+@media (min-width: 992px) {
+  .resources-list-filter-container {
+	max-width: 33%;
+  }
+}
+
 .resource-list .highlight {
   background-color: yellow;
 }
