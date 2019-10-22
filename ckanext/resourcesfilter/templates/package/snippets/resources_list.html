@@ -21,9 +21,10 @@
     </ul>
 
     {% include 'package/snippets/resources_list_template.html' %}
+
+    {% resource 'resourcesfilter/resources-list' %}
   {% else %}
     {{ super() }}
   {% endif %}
 
-  {% resource 'resourcesfilter/resources-list' %}
 {% endblock %}
