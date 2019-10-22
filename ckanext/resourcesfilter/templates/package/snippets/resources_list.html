@@ -1,7 +1,8 @@
 {% ckan_extends %}
 
 {% block resource_list %}
-{% set page_size = h.get_resources_filter_page_size() %}
+  {% set page_size = h.get_resources_filter_page_size() %}
+  {% set can_edit = h.check_access('package_update', {'id':pkg.id }) %}
   {% if resources|length >= page_size %}
     <form class="simple-input">
      <div class="resources-list-filter-container field" >
@@ -12,7 +13,11 @@
     <ul class="resource-list"
         data-module="resources-list"
         data-module-page-size="{{ page_size }}"
-        data-module-resources="{{ h.dump_json(resources) }}">
+        data-module-resources="{{ h.dump_json(resources) }}"
+        data-module-base-read-url="{{ h.url_for(controller="package", action="resource_read", id=pkg.name, resource_id="__resource_id__") }}"
+        data-module-base-edit-url="{{ h.url_for(controller="package", action="resource_edit", id=pkg.name, resource_id="__resource_id__") }}"
+        data-module-can-edit="{{ can_edit }}"
+        >
     </ul>
 
     {% include 'package/snippets/resources_list_template.html' %}

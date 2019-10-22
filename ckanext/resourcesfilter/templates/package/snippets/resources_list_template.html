@@ -1,13 +1,13 @@
 {% raw %}
 <script type="text/template" id="resources-list-template">
 {{#resources}}
-  <li class="resource-item" data-id="{{ id }}">
-    <a class="heading" href="{{ url }}" title="{{ name }}">
-      {{{name}}}<span class="format-label" property="dc:format" data-format="{{ format.lower() or 'data' }}">{{{ format }}}</span>
+  <li class="resource-item" data-id="{{id}}">
+    <a class="heading" href="{{read_url}}" title="{{name}}">
+      {{{display_name}}}<span class="format-label" property="dc:format" data-format="{{display_format}}">{{format}}</span>
     </a>
-      <p class="description">
-          {{{ description }}}
-      </p>
+    <p class="description">
+      {{{display_description}}}
+    </p>
     <div class="dropdown btn-group">
       <a href="#" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
         <i class="fa fa-share"></i>
@@ -16,23 +16,37 @@
       </a>
       <ul class="dropdown-menu">
         <li>
-          <a href="{{ url }}">
+          <a href="{{read_url}}">
+            {{#has_views}}
               <i class="fa fa-bar-chart-o"></i>
               Preview
+            {{/has_views}}
+            {{^has_views}}
+              <i class="fa fa-info-circle"></i>
+              More information
+            {{/has_views}}
           </a>
         </li>
         <li>
           <a href="{{ url }}" class="resource-url-analytics" target="_blank">
+            {{#is_upload}}
               <i class="fa fa-arrow-circle-o-down"></i>
               Download
+            {{/is_upload}}
+            {{^is_upload}}
+              <i class="fa fa-external-link"></i>
+              Go to resource
+            {{/is_upload}}
           </a>
         </li>
+        {{#can_edit}}
         <li>
-          <a href="{{ url }}">
+          <a href="{{ edit_url }}">
             <i class="fa fa-pencil-square-o"></i>
             Edit
           </a>
         </li>
+        {{/can_edit}}
       </ul>
     </div>
   </li>
