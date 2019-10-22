@@ -5,7 +5,21 @@ This extension replaces the standard resources list on the dataset page with an
 interactive paginated list that can be browsed and filtered, useful for datasets with 
 many resources.
 
+![Demo](https://raw.githubusercontent.com/okfn/ckanext-resourcesfilter/master/doc/ckanext-resourcesfilter.gif)
 
+Important things to keep in mind:
+
+* This extension overrides CKAN core templateis. If you need to add customizations to the resources list for
+  your own project, you need to override this extension's templates from your own (and load your plugin first in the ini
+  file, eg `ckan.plugins = ... your_plugin resourcesfilter`). The templates to override are the following:
+  * `package/snippets/resources_list.html` -> same name and location
+  * `package/snippets/resource_item.html` -> `package/snippets/resources_list_template.html`
+  The second one is a [Mustache](https://mustache.github.io) template, rendered on the client. So any server side
+  logic (eg check if user can edit, build URLs, etc) must be done on the Jinja2 `resources_list.html` template and
+  passed via module parameters.
+
+* The browsable list is only rendered on the dataset read page, not the internal management one.
+* The current implementation does not support translations or the "popular" indicators. Pull requests are welcome.
 
 ## Installation
 
