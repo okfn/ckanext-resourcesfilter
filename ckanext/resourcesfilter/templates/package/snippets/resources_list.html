@@ -3,6 +3,13 @@
 {% block resource_list %}
   {% set page_size = h.get_resources_filter_page_size() %}
   {% set can_edit = h.check_access('package_update', {'id':pkg.id }) %}
+
+  {% if h.ckan_29() %}
+    {% snippet 'package/snippets/resources_filter_webassets.html', pkg=pkg %}
+  {% else %}
+    {% snippet 'package/snippets/resources_filter_fanstatic.html', pkg=pkg %}
+  {% endif %}
+
   {% if resources|length >= page_size %}
     <form class="simple-input">
      <div class="resources-list-filter-container field" >
@@ -14,15 +21,13 @@
         data-module="resources-list"
         data-module-page-size="{{ page_size }}"
         data-module-resources="{{ h.dump_json(resources) }}"
-        data-module-base-read-url="{{ h.url_for(controller="package", action="resource_read", id=pkg.name, resource_id="__resource_id__") }}"
-        data-module-base-edit-url="{{ h.url_for(controller="package", action="resource_edit", id=pkg.name, resource_id="__resource_id__") }}"
+        data-module-base-read-url="{{ read_url }}"
+        data-module-base-edit-url="{{ edit_url }}"
         data-module-can-edit="{{ can_edit }}"
         >
     </ul>
 
     {% include 'package/snippets/resources_list_template.html' %}
-
-    {% resource 'resourcesfilter/resources-list' %}
   {% else %}
     {{ super() }}
   {% endif %}
