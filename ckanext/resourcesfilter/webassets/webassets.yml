@@ -3,11 +3,18 @@ resources-list-css:
     - vendor/pagination.css
     - modules/resources-list.css
 
-resources-list:
+resources-list-vendor:
   contents:
     - vendor/pagination.js
     - vendor/mustache.js
-    - modules/resources-list.js
   extra:
     preload:
         - base/main
+
+resources-list:
+  contents:
+    - modules/resources-list.js
+  extra:
+    preload:
+        - resourcesfilter/resources-list-vendor
+        - resourcesfilter/resources-list-css
