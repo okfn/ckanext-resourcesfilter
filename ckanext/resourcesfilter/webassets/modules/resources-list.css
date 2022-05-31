@@ -11,3 +11,7 @@
 .resource-list .highlight {
   background-color: yellow;
 }
+
+.paginationjs {
+  margin-bottom: 30px;
+}
